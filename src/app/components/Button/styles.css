@@ -1,0 +1,23 @@
+.meta-img {
+  border-radius: 100px;
+  border: 2px solid rgb(169, 0, 221);
+  max-width: 150px;
+  min-width: 120px;
+}
+
+.img-container {
+  width: 120px;
+  margin: 20px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.img-container :hover {
+  transform: scale(110%);
+  box-shadow: 1px 6px 1px rgba(0, 0, 0, 0.186);
+}
+.img-container :active {
+  transform: scale(95%);
+}
