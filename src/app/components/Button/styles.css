@@ -21,3 +21,10 @@
 .img-container :active {
   transform: scale(95%);
 }
+
+.accounttag {
+  border-radius: 100px;
+  border: 2px solid rgb(169, 0, 221);
+  padding: 1rem;
+  font-size: 2rem;
+}

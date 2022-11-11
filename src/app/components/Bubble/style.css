@@ -1,0 +1,94 @@
+@keyframes animate {
+  0% {
+    transform: translate(-50%, -75%) rotate(0deg);
+  }
+  100% {
+    transform: translate(-50%, -75%) rotate(360deg);
+  }
+}
+.bubblecontainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.bubble {
+  position: relative;
+  padding: 4rem;
+  min-width: 8rem;
+  min-height: 8rem;
+  display: block;
+  text-decoration: none;
+  text-transform: uppercase;
+  border: 3px solid purple;
+  overflow: hidden;
+  border-radius: 100%;
+}
+.bubblepercent {
+  padding: 3rem;
+  border-radius: 100%;
+  margin: 0;
+  font-size: 5em;
+  z-index: 1000;
+  color: rgba(255, 255, 255, 0.466);
+  position: absolute;
+  top: 10%;
+  left: 10%;
+}
+
+.wave {
+  position: absolute;
+  top: -110%;
+  left: -50%;
+  width: 50rem;
+  height: 50rem;
+  background: #35b62b;
+  box-shadow: inset 0 0 50px rgba(0, 0, 0, 0.5);
+  transition: 0.5s;
+}
+
+.wave::after,
+.wave::before {
+  content: "";
+  width: 250%;
+  height: 250%;
+  position: absolute;
+  top: 0;
+  left: 30%;
+  transform: translate(-50%, -75%);
+  background: rgb(113, 73, 245);
+}
+
+.wave::before {
+  border-radius: 48%;
+  background: rgb(0, 19, 21);
+  animation: animate 7s linear infinite;
+}
+
+.wave::after {
+  border-radius: 44%;
+  background: rgba(1, 30, 1, 0.193);
+  animation: animate 10s linear infinite;
+}
+.ticker {
+  margin: 2rem;
+  font-size: 3rem;
+  font-weight: 400;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  color: antiquewhite;
+}
+.votingbuttons {
+  display: flex;
+  flex-direction: row;
+  width: 10rem;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 3rem;
+}
+.votingemoji:hover {
+  scale: 120%;
+}
+.votingemoji:active {
+  scale: 90%;
+}

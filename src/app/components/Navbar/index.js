@@ -6,9 +6,9 @@ const Navbar = () => {
   return (
     <div className="navbar-container">
       <div className="navbar-side-items">
-        <Logo size={80} />
+        <Logo size={80} /> <h3 className="sentiment">Sentiment</h3>
       </div>
-      <span className="navbar-title">Welcome to WEB 3.0</span>
+      <span className="navbar-title">Market Sentiment</span>
 
       <Button />
     </div>

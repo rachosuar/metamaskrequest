@@ -1,27 +1,23 @@
 import "./styles.css";
-import ethelogo from "../../../assets/images/etherlogo.png";
-import polylogo from "../../../assets/images/polygonlogo.png";
-
+import Bubble from "../Bubble";
+import { useContext } from "react";
+import AppContext from "../../context/AppContext";
 const Card = ({ className = "card", account, balance }) => {
+  let { tickers } = useContext(AppContext);
+
   return (
     <div className={className}>
-      {window.ethereum ? (
-        <>
-          {account ? (
-            <>
-              <span className="card-conected"> CONECTED TO {account}</span>
-              <span className="card-conected"> BALANCE: {balance}</span>
-            </>
-          ) : (
-            <span className="card-conected">CONECT YOUR WALLET</span>
-          )}
-        </>
-      ) : (
-        <span className="card-disconected"> INSTALL METAMASK EXTENTION</span>
-      )}
       <div className="cardimgs">
-        <img src={ethelogo} height="100px" alt="ethereum"></img>
-        <img src={polylogo} height="100px" alt="ethereum"></img>
+        {tickers.map((ticker) => (
+          <Bubble
+            key={ticker.name}
+            name={ticker.name}
+            value={Math.floor(
+              (ticker.votesPositive * 100) /
+                (ticker.votesPositive + ticker.votesNegative)
+            )}
+          />
+        ))}
       </div>
     </div>
   );

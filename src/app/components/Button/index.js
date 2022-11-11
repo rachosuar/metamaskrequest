@@ -33,7 +33,12 @@ const Button = (props) => {
         >
           {loading && "loading.."}
         </img>
-      ) : null}
+      ) : (
+        <h3 className="accounttag">{`${account.slice(0, 4)}....${account.slice(
+          -5,
+          -1
+        )}`}</h3>
+      )}
     </div>
   );
 };
