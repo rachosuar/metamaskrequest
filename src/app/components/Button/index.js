@@ -8,7 +8,7 @@ import AppContext from "../../context/AppContext";
 const Button = (props) => {
   const { children, loading } = props;
   const fullClassName = ["button"];
-  let { metaClick, account } = useContext(AppContext);
+  let { connectWallet, account } = useContext(AppContext);
 
   const [image, setImage] = useState(metaimg);
 
@@ -29,7 +29,7 @@ const Button = (props) => {
           {...props}
           onMouseEnter={changeImage}
           onMouseLeave={backToImage}
-          onClick={metaClick}
+          onClick={connectWallet}
         >
           {loading && "loading.."}
         </img>

@@ -92,3 +92,14 @@
 .votingemoji:active {
   scale: 90%;
 }
+.totalVotes {
+  margin: 2rem;
+  font-size: 1.5rem;
+  background-color: blanchedalmond;
+  font-weight: 400;
+  border-radius: 50%;
+  padding: 1rem;
+  border: 3px solid purple;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  color: rgb(240, 129, 240);
+}

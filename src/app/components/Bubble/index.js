@@ -1,9 +1,45 @@
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
 import AppContext from "../../context/AppContext";
 import "./style.css";
+import { ethers } from "ethers";
 
-const Bubble = ({ name, value }) => {
-  let { addPositive, addNegative } = useContext(AppContext);
+const Bubble = ({ name }) => {
+  let { addPositive, addNegative, marketSentimentInstance } =
+    useContext(AppContext);
+  let [value, setValue] = useState();
+  let [totalVotes, setTotalVotes] = useState();
+  let votesPositive;
+  let votesNegative;
+
+  useEffect(() => {
+    if (marketSentimentInstance) {
+      try {
+        async function updateSentiment() {
+          votesNegative = await marketSentimentInstance.getNegativeVotes(name);
+          votesPositive = await marketSentimentInstance.getPositiveVotes(name);
+          function getSentiment(upvotesBn, downvotesBn) {
+            const sentimentBn = upvotesBn
+              .mul(100)
+              .div(upvotesBn.add(downvotesBn));
+            const totalVotes = upvotesBn.add(downvotesBn);
+            return {
+              sentiments: Number(ethers.utils.formatUnits(sentimentBn, 0)),
+              total: Number(ethers.utils.formatUnits(totalVotes, 0)),
+            };
+          }
+          let { sentiments, total } = getSentiment(
+            votesPositive,
+            votesNegative
+          );
+          setValue(sentiments);
+          setTotalVotes(total);
+        }
+        updateSentiment();
+      } catch (err) {
+        console.log(err.message);
+      }
+    }
+  }, [marketSentimentInstance]);
   let bubbleColor;
   if (value < 50) {
     bubbleColor = "red";
@@ -16,10 +52,32 @@ const Bubble = ({ name, value }) => {
   return (
     <div className="bubblecontainer">
       <div className="bubble">
-        <span className="bubblepercent"> {`${value}%`} </span>
+        <span
+          className="bubblepercent"
+          style={
+            !value
+              ? {
+                  fontSize: "large",
+                  color: "blue",
+                  transform: "translateY(40%) translateX(-10%)",
+                  textAlign: "center",
+                }
+              : null
+          }
+        >
+          {" "}
+          {value ? `${value}%` : "No sentiments, Vote First"}{" "}
+        </span>
         <div
           className="wave"
-          style={{ top: `-${100 + value}%`, background: `${bubbleColor}` }}
+          style={
+            value
+              ? { top: `-${100 + value}%`, background: `${bubbleColor}` }
+              : {
+                  top: `-${100 + 50}%`,
+                  background: "cyan",
+                }
+          }
         ></div>
       </div>
       <span className="ticker">{name}</span>
@@ -43,6 +101,9 @@ const Bubble = ({ name, value }) => {
           👎{" "}
         </span>
       </div>
+      <span className="totalVotes">
+        {value ? `Total Votes : ${totalVotes}` : null}
+      </span>
     </div>
   );
 };

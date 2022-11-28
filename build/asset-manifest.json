@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/static/css/main.5a58fdfc.css",
+    "main.js": "/static/js/main.1901217e.js",
+    "static/media/metamask.gif": "/static/media/metamask.033cbb63a2b4caf90f52.gif",
+    "static/media/ewol_logo.png": "/static/media/ewol_logo.fc188a6c46a045c9355b.png",
+    "index.html": "/index.html",
+    "main.5a58fdfc.css.map": "/static/css/main.5a58fdfc.css.map",
+    "main.1901217e.js.map": "/static/js/main.1901217e.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.5a58fdfc.css",
+    "static/js/main.1901217e.js"
+  ]
+}

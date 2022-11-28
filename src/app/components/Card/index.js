@@ -1,23 +1,22 @@
 import "./styles.css";
 import Bubble from "../Bubble";
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
 import AppContext from "../../context/AppContext";
-const Card = ({ className = "card", account, balance }) => {
-  let { tickers } = useContext(AppContext);
+const Card = ({ className = "card" }) => {
+  let { tickers, getMarketSentiment } = useContext(AppContext);
 
   return (
     <div className={className}>
       <div className="cardimgs">
-        {tickers.map((ticker) => (
-          <Bubble
-            key={ticker.name}
-            name={ticker.name}
-            value={Math.floor(
-              (ticker.votesPositive * 100) /
-                (ticker.votesPositive + ticker.votesNegative)
-            )}
-          />
-        ))}
+        {tickers
+          ? tickers.map((ticker) => (
+              <Bubble
+                key={ticker}
+                name={ticker}
+                getMarketSentiment={getMarketSentiment}
+              />
+            ))
+          : null}
       </div>
     </div>
   );
