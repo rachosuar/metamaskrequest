@@ -2,9 +2,10 @@ import { useContext, useEffect, useState } from "react";
 import AppContext from "../../context/AppContext";
 import "./style.css";
 import { ethers } from "ethers";
+import Swal from "sweetalert2";
 
 const Bubble = ({ name }) => {
-  let { addPositive, addNegative, marketSentimentInstance } =
+  let { addPositive, addNegative, marketSentimentInstance, error } =
     useContext(AppContext);
   let [value, setValue] = useState();
   let [totalVotes, setTotalVotes] = useState();
@@ -36,10 +37,10 @@ const Bubble = ({ name }) => {
         }
         updateSentiment();
       } catch (err) {
-        console.log(err.message);
+        console.log(err.reason);
       }
     }
-  }, [marketSentimentInstance]);
+  }, [marketSentimentInstance, totalVotes]);
   let bubbleColor;
   if (value < 50) {
     bubbleColor = "red";
@@ -68,6 +69,7 @@ const Bubble = ({ name }) => {
           {" "}
           {value ? `${value}%` : "No sentiments, Vote First"}{" "}
         </span>
+
         <div
           className="wave"
           style={
@@ -80,6 +82,7 @@ const Bubble = ({ name }) => {
           }
         ></div>
       </div>
+
       <span className="ticker">{name}</span>
       <div className="votingbuttons">
         <span
@@ -103,6 +106,9 @@ const Bubble = ({ name }) => {
       </div>
       <span className="totalVotes">
         {value ? `Total Votes : ${totalVotes}` : null}
+      </span>
+      <span className="error">
+        {error?.ticker === name ? `${error.message}` : null}
       </span>
     </div>
   );

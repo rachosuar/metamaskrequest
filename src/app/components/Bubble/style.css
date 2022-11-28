@@ -96,10 +96,21 @@
   margin: 2rem;
   font-size: 1.5rem;
   background-color: blanchedalmond;
+  min-width: 5rem;
   font-weight: 400;
   border-radius: 50%;
   padding: 1rem;
   border: 3px solid purple;
   font-family: Verdana, Geneva, Tahoma, sans-serif;
   color: rgb(240, 129, 240);
+}
+.error {
+  font-size: 1.5rem;
+  text-align: center;
+  border: 2px solid red;
+  background-color: rgb(236, 68, 211);
+  max-width: 20rem;
+  transform: translateY(4rem);
+  color: white;
+  z-index: 1000;
 }
