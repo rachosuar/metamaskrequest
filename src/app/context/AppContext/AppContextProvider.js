@@ -13,8 +13,6 @@ const AppContextProvider = ({ children }) => {
   const contractAddr = "0xd2fDd7d7b25555e0E6e8b3D4CF25745891b2c799";
   let ethProvider;
   let ethSigner;
-  let ethAccount;
-  let ethNetwork;
 
   let contractAbi = abi.abi;
 
@@ -35,14 +33,40 @@ const AppContextProvider = ({ children }) => {
       setTickers(tick);
       setMarketSentimentInstance(marketSentimentInstance);
 
-      ethNetwork = await ethProvider.getNetwork();
+      let ethNetwork = await ethProvider.getNetwork();
       setNetwork(ethNetwork.chainId);
     }
 
     init();
-  }, []);
+  }, [account]);
 
   useEffect(() => {
+    if (network !== 80001) {
+      try {
+        window.ethereum.request({
+          method: "wallet_switchEthereumChain",
+          params: [{ chainId: "0x13881" }],
+        });
+      } catch (err) {
+        if (err == 4902) {
+          window.ethereum.request({
+            method: "wallet_addEthereumChain",
+            params: [
+              {
+                chainId: "0x13881",
+                rpcUrl: "https://rpc-mumbai.maticvigil.com",
+                chainName: "Polygon Testnet Mumbai",
+                nativeCurrency: {
+                  name: "tMATIC",
+                  symbol: "tMATIC", // 2-6 characters long
+                  decimals: 18,
+                },
+              },
+            ],
+          });
+        }
+      }
+    }
     async function connectWallet() {
       const connectPromise = await window.ethereum
         .request({ method: "eth_requestAccounts" })
@@ -67,16 +91,13 @@ const AppContextProvider = ({ children }) => {
         console.log("Please connect to MetaMask.");
         return false;
       } else {
-        ethAccount = accounts[0];
+        let ethAccount = accounts[0];
 
-        return {
-          account: ethAccount,
-          network: ethNetwork,
-        };
+        setAccount(ethAccount);
       }
     }
     connectWallet();
-  }, [network, account]);
+  }, [account]);
 
   async function addNegative(_ticker) {
     try {
